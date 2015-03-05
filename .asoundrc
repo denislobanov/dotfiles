@@ -1,0 +1,98 @@
+#
+# equalizer
+ctl.equal {
+  type equal;
+}
+
+pcm.plugequal {
+  type equal;
+  slave.pcm "plug:dmix";
+}
+
+pcm.equal {
+  type plug;
+  slave.pcm plugequal;
+}
+
+#
+# upmix to 5.1
+pcm.lowpass_21to21 {
+    type ladspa
+    slave.pcm upmix_21to51
+    path "/usr/lib/ladspa"
+    channels 3
+    plugins {
+      0 {
+         id 1098  # Identity (Audio) (1098/identity_audio)
+         policy duplicate
+         input.bindings.0 "Input";
+         output.bindings.0 "Output";
+      }
+
+      1 {
+         id 1052  # High-pass filter
+         policy none
+         input.bindings.0 "Input";
+         output.bindings.0 "Output";
+         input {
+            controls [ 100 ]
+         }
+      }
+
+      2 {
+         id 1052  # High-pass filter
+         policy none
+         input.bindings.1 "Input";
+         output.bindings.1 "Output";
+         input {
+            controls [ 100 ]
+         }
+      }
+
+      3 {
+         id 1051  # Low-pass filter
+         policy none
+         input.bindings.2 "Input";
+         output.bindings.2 "Output";
+         input {
+            controls [ 100 ]
+         }
+      }
+
+   }
+}
+
+
+pcm.upmix_20to51 {
+   type plug
+   slave.pcm "lowpass_21to21"
+   slave.channels 3
+   ttable {
+      0.0     1       # left channel
+      1.1     1       # right channel
+      0.2     0.5     # mix left and right ...
+      1.2     0.5     # ... channel for subwoofer
+   }
+}
+
+
+pcm.upmix_21to51 {
+   type plug
+   slave.pcm surround51
+   slave.channels 6
+   ttable {
+      1.0     1       # front left
+      0.1     1       # front right
+      1.2     1       # rear left
+      0.3     1       # rear right
+
+      # Front left/right to center.
+      1.4     0.5
+      0.4     0.5
+
+      # Subwoofer, more powerful to compensate for bass-removal from other speakers.
+      # Would normally be 1.
+      2.5     2
+    }
+}
+

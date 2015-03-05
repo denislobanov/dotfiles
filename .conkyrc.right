@@ -1,0 +1,81 @@
+# Time and email conky
+#
+
+# general conky config
+background                  yes
+total_run_times             0
+update_interval             1.0
+
+# window config
+own_window                  yes
+own_window_hints            undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_type             override
+own_window_transparent      yes
+
+# window placement
+alignment                   middle_right
+#minimum_size                190, 100
+#maximum_width               190
+gap_x                       -8
+gap_y                       -30
+
+# visual properties
+draw_borders                no
+double_buffer               yes
+stippled_borders            0
+show_graph_scale            yes
+show_graph_range            yes
+
+# font config
+use_xft                     yes
+xftfont                     Bitstream Vera Sans Mono:size=10
+uppercase                   no
+
+template0 \1 ${fs_used_perc \2} %
+template1 \1 ${fs_used_perc \2} % ${fs_used \2}
+
+TEXT
+${font StyleBats:size=40}K$font
+${cpu 1} %
+${cpu 2} %
+f ${freq_g 1} GHz
+p $running_processes / $processes
+t $running_threads  / $threads
+
+
+${font StyleBats:size=40}L$font
+0 ${platform coretemp.0/hwmon/hwmon0 temp 1} °C
+1 ${platform coretemp.0/hwmon/hwmon0 temp 2} °C
+m ${platform nct6775.656/hwmon/hwmon2 temp 1} °C
+c ${platform nct6775.656/hwmon/hwmon2 temp 2} °C
+p ${platform nct6775.656/hwmon/hwmon2 temp 7} °C
+
+
+${font StyleBats:size=40}S$font
+g ${nvidia gpufreq} MHz
+m ${nvidia memfreq} MHz
+t ${nvidia temp} °C
+
+
+${font StyleBats:size=40}Y$font
+f $memfree
+u $mem
+e $memeasyfree
+t $memmax
+
+
+${font StyleBats:size=40}I$font
+r      s
+${hddtemp /dev/sdb} °C  ${hddtemp /dev/sda} °C
+${hddtemp /dev/sdc} °C
+${hddtemp /dev/sdd} °C
+${template0 / /}
+${template0 v /var}
+${template0 h /home}$font
+
+
+${font StyleBats:size=40}U${font Bitstream Vera Sans Mono:size=9}
+${top cpu 1} ${top name 1}
+${top cpu 2} ${top name 2}
+${top cpu 3} ${top name 3}
+

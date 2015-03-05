@@ -1,0 +1,8 @@
+XDG_DESKTOP_DIR="/home/vision"
+XDG_DOWNLOAD_DIR="/home/vision/downloads"
+XDG_TEMPLATES_DIR="/home/vision/"
+XDG_PUBLICSHARE_DIR="/home/vision"
+XDG_DOCUMENTS_DIR="/home/vision"
+XDG_MUSIC_DIR="/home/vision/music"
+XDG_PICTURES_DIR="/home/vision/images"
+XDG_VIDEOS_DIR="/home/vision/movies"

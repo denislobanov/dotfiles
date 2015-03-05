@@ -1,0 +1,48 @@
+# Time and email conky
+#
+
+# general conky config
+background                  yes
+total_run_times             0
+update_interval             10.0
+
+# window config
+own_window                  yes
+#own_window_hints            undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_type             override
+own_window_transparent      yes
+
+# window placement
+alignment                   middle_left
+#minimum_size                190, 100
+#maximum_width               190
+gap_x                       110
+gap_y                       110
+
+# visual properties
+draw_borders                no
+double_buffer               yes
+stippled_borders            0
+show_graph_scale            yes
+show_graph_range            yes
+
+# font config
+use_xft                     yes
+#xftfont                     snap:size=11
+xftfont                     Bitstream Vera Sans Mono:size=10
+uppercase                   no
+#use_spacer                  left
+
+TEXT
+${font DejaVu Sans:size=36}${time %R}$font
+${time %A %dth %M}
+Uptime:   $uptime
+Load:     $loadavg
+
+zooei:    ${unseen_mails /home/vision/.mail/zooei/inbox} / ${mails /home/vision/.mail/zooei/inbox}
+gmail:    ${unseen_mails /home/vision/.mail/lobanov/inbox} / ${mails /home/vision/.mail/lobanov/inbox}
+
+${mpd_status}: \
+${mpd_artist} ${mpd_title}
+$mpd_name
+

@@ -1,0 +1,31 @@
+! Mouse cursor theme (for everyone)
+Xcursor.theme: whiteglass
+
+! Redefine defaul urxvt look (transparency)
+URxvt.depth: 32
+URxvt.background: #292929
+URxvt.foreground: #f0f0f0
+!URxvt.background: #303030
+!URxvt.foreground: #e5e5e5
+URxvt.buffered: true
+URxvt.scrollBar: false
+URxvt.font:xft:Bitstream Vera Sans Mono:pixelsize=12:antialias=true
+URxvt.transparent: false
+URxvt.shading: 40
+
+Urxvt.secondaryScroll:  true    # Enable Shift-PageUp/Down in screen
+
+URxvt.perl-ext:      default,url-select
+URxvt.keysym.M-u:    perl:url-select:select_next
+URxvt.urlLauncher:   uzbl-browser
+URxvt.underlineURLs: true
+
+! HiDPI settings
+Xft.dpi: 110
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
