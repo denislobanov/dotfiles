@@ -1,0 +1,51 @@
+#!/bin/zsh
+#
+# Non repeating random wallpaper selection.
+USER=denis
+DIR=/home/$USER/images/wallpaper
+USED_LOG=$DIR/.used
+LOCKSCREEN=/home/$USER/images/lockscreen.png
+
+make_lockscreen ()
+{
+    convert -adaptive-resize \!3200x1800 $1 $LOCKSCREEN
+}
+
+new_wallpaper=''
+find_new ()
+{
+    local wp='find $DIR -type f | shuf -n1'
+
+    for f in $(find $DIR -type f ! -name ".used" | shuf)
+    do
+        echo $f
+        if grep -Fxq $f $USED_LOG
+        then
+            echo "already used this wallpaper"
+        else
+            echo "found new wallpaper!"
+            new_wallpaper="$f"
+            echo $f >> $USED_LOG
+            return 0
+        fi
+    done
+
+    # failed to find any new wallpaper
+    return 1
+}
+
+
+# find and set new wallpaper + lockscreen
+if find_new
+then
+    echo $new_wallpaper
+    make_lockscreen $new_wallpaper
+    export DISPLAY=:0
+    feh --bg-fill $new_wallpaper
+    export DISPLAY=:1
+    feh --bg-fill $new_wallpaper
+else
+    echo "" > $USED_LOG
+    /home/$USER/bin/wallpaper
+fi
+
