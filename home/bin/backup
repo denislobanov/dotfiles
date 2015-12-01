@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# mount backup drive
+cryptsetup luksOpen $1 blue -d /root/blue.key
+if [ ! -h /dev/mapper/blue ]
+then
+    echo "Failed to open backup drive!"
+    exit 1
+fi
+mount /dev/mapper/blue /mnt/backup_drive
+
+# Backup filename as date
+datestring=$(date +%Y%m%d)
+
+# Mail server
+lvcreate -L1G -s -n backup_mht /dev/VolAlpha/mht
+mount /dev/VolAlpha/backup_mht /mnt/snapshot
+tar -cpf /mnt/backup_drive/mht/$date_string.tar -g /mnt/backup_drive/mht/mht.snar -C /mnt/snapshot rootfs
+umount /mnt/snapshot
+lvremove -f /dev/VolAlpha/backup_mht
+
+# Task server
+lvcreate -L1G -s -n backup_task /dev/VolAlpha/task
+mount /dev/VolAlpha/backup_task /mnt/snapshot
+tar -cpf /mnt/backup_drive/task/$date_string.tar -g /mnt/backup_drive/task/task.snar -C /mnt/snapshot rootfs
+umount /mnt/snapshot
+lvremove -f /dev/VolAlpha/backup_task
+
+# Git
+lvcreate -L1G -s -n backup_git /dev/VolAlpha/git
+mount /dev/VolAlpha/backup_git /mnt/snapshot
+tar -cpf /mnt/backup_drive/git/$date_string.tar -g /mnt/backup_drive/git/git.snar -C /mnt/snapshot rootfs
+umount /mnt/snapshot
+lvremove -f /dev/VolAlpha/backup_git
+
+# User Data dir
+tar -cvf /mnt/backup_drive/user_data/$date_string.tar -g /mnt/backup_drive/user_data/user_data.snar -C /mnt/user_data /mnt/user_data/
+
+# remove backup drive
+umount /mnt/backup_drive
+cryptsetup luksClose blue
+
+echo "done."
