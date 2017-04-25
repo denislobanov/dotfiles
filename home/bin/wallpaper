@@ -8,7 +8,7 @@ LOCKSCREEN=/home/$USER/images/lockscreen.png
 
 make_lockscreen ()
 {
-    convert -adaptive-resize \!3200x1800 $1 $LOCKSCREEN
+    convert -adaptive-resize \!3840x2160 $1 $LOCKSCREEN
 }
 
 new_wallpaper=''
@@ -41,10 +41,11 @@ then
     echo $new_wallpaper
     make_lockscreen $new_wallpaper
     export DISPLAY=:0
-    feh --bg-fill $new_wallpaper
+    feh --bg-scale $new_wallpaper
     export DISPLAY=:1
     feh --bg-fill $new_wallpaper
 else
+    cp $USED_LOG $USED_LOG.1
     echo "" > $USED_LOG
     /home/$USER/bin/wallpaper
 fi

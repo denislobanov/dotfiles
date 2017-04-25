@@ -1,8 +1,8 @@
 # Write your default config options here!
 [default]
+ao=pulse
 vo=xv,directfb
-ao=alsa
 lavdopts=threads=2
-channels = 2
+channels=2
 idx=yes
 

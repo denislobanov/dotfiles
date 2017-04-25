@@ -1,0 +1,1 @@
+/home/denis/.irssi/scripts/spell.pl

@@ -2,10 +2,10 @@
 
 SHELL=/bin/sh
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-MAILTO=vision
+MAILTO=$USER
 # the maximal random delay added to the base delay of the jobs
 RANDOM_DELAY=0
 START_HOURS_RANGE=0-23
 
 #period in days   delay in minutes   job-identifier   command
-@daily  0   cron.daily      nice    /bin/sh /home/vision/bin/wallpaper
+@daily  0   cron.daily      nice    /bin/sh /home/$USER/bin/wallpaper

@@ -1,6 +1,6 @@
-" For multi-byte character support (CJK support, for example):
-"set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
-       
+" .vimrc
+" See: http://vimdoc.sourceforge.net/htmldoc/options.html for details
+
 syntax on
 set tabstop=4
 set shiftwidth=4
@@ -8,6 +8,7 @@ set expandtab
 set smarttab
 set showcmd
 set number
+set relativenumber
 set showmatch
 set hlsearch
 set incsearch
@@ -31,44 +32,44 @@ set formatoptions=c,q,r,t " This is a sequence of letters which describes how
 set ruler
 set background=dark
 set mouse=a
+colorscheme jellybeans
+
 
 "
-" Vundle plugin install
-set nocompatible               " be iMproved
-filetype off                   " required!
+" Plugins
+set nocompatible 
+filetype off
 call vundle#rc()
 
-" functionality
 Plugin 'bling/vim-airline'
-Plugin 'unite.vim'
 Plugin 'fugitive.vim'
+Plugin 'bling/vim-bufferline'
+Plugin 'unite.vim'
+Plugin 'SuperTab'
 Bundle 'farseer90718/vim-taskwarrior'
-
-" looks 
-Plugin 'molokai'
-Plugin 'chriskempson/base16-vim'
+Plugin 'vim-airline/vim-airline-themes'
+Bundle 'scrooloose/nerdtree'
+Bundle 'kien/ctrlp.vim'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'majutsushi/tagbar'
 
 
 "
-" Plugin configuration
+" Plugin Config
 filetype plugin indent on
-colorscheme zenburn
 
-" syntastic
-map <silent> <Leader>e :Errors<CR>
-map <Leader>s :SyntasticToggleMode<CR>
-let g:syntastic_auto_loc_list=1
+" vim-taskwarrior
+let g:task_rc_override = 'rc.defaultwidth=0'
+let g:task_rc_override = 'rc.defaultheight=0'
 
-" ghc-mod
-" Reload
-map <silent> tu :call GHC_BrowseAll()<CR>
-" Type Lookup
-map <silent> tw :call GHC_ShowType(1)<CR>
+" easytags
+let g:easytags_async = 1
 
-" tagbar
-nmap <leader> = :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
+" NERDTree
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
-" vim-slime
-let g:slime_target = "tmux"
-let g:slime_paste_file = tempname()
+" TagBar
+nmap <F8> :TagbarToggle<CR>
+

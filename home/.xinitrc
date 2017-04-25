@@ -16,11 +16,11 @@ xrdb -merge ~/.Xresources &
 xsetroot -cursor_name left_ptr &
 
 sh ~/.fehbg &
-mpd /home/vision/.config/mpd/config &
+mpd &
 numlockx &
 
 anacron -t ${HOME}/.anacron/anacrontab -S ${HOME}/.anacron/ &> ${HOME}/.anacron/log &
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0" &
-exec awesome
+exec xmonad
 
